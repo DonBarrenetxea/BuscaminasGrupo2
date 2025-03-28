@@ -17,4 +17,5 @@ public class Main {
 		ventanaBuscaminas.setVisible(true);
 		menuBuscaminas.setVisible(false);
 	}
+	
 }
