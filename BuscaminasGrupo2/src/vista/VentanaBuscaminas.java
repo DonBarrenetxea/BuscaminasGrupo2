@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,24 +27,22 @@ public class VentanaBuscaminas extends JFrame {
 		this.minas = minas;
 		this.celdas = new ArrayList<>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(50 * columnas, 50 * filas);
+		setSize(35 * columnas, 35 * filas);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new GridLayout(filas, columnas));
-
+		setResizable(false);
 		setContentPane(contentPane);
 		agregarCeldas();
 	}
 
 	private static void agregarCeldas() {
-		for (int i = 0; i < filas * columnas; i++) {
-			JButton celda = new JButton();
-			celda.setBackground(Color.LIGHT_GRAY);
-			celda.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-			celda.setFocusPainted(false);
+	    ImageIcon icono = new ImageIcon("src/images/blank.gif"); 
 
-			celdas.add(celda);
-			contentPane.add(celda);
-		}
+	    for (int i = 0; i < filas * columnas; i++) {
+	        JButton celda = new JButton(icono);
+	        celdas.add(celda);
+	        contentPane.add(celda);
+	    }
 	}
 }

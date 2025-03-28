@@ -32,6 +32,7 @@ public class MenuBuscaminas extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setResizable(false);
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();

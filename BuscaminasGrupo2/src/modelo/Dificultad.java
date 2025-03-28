@@ -3,7 +3,7 @@ package modelo;
 public enum Dificultad {
 FACIL(8,8,10),
 MEDIO(16,16,40),
-DIFICIL(16,30,99);
+DIFICIL(30,16,99);
 
 	private final int columnas;
 	private final int filas;
