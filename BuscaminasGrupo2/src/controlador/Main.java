@@ -1,6 +1,7 @@
 package controlador;
 
 import modelo.Dificultad;
+import modelo.Tablero;
 import vista.MenuBuscaminas;
 import vista.VentanaBuscaminas;
 
@@ -13,7 +14,8 @@ public class Main {
 		menuBuscaminas.setVisible(true);
 	}
 	public static void abrirVentanaBuscaminas(Dificultad dificultad) {
-		ventanaBuscaminas = new VentanaBuscaminas(dificultad.getColumnas(),dificultad.getFilas(),dificultad.getMinas());
+		Tablero tablero = new Tablero(dificultad.getFilas(),dificultad.getColumnas(),dificultad.getMinas());
+		ventanaBuscaminas = new VentanaBuscaminas(dificultad.getColumnas(),dificultad.getFilas(),dificultad.getMinas(), tablero);
 		ventanaBuscaminas.setVisible(true);
 		menuBuscaminas.setVisible(false);
 	}
