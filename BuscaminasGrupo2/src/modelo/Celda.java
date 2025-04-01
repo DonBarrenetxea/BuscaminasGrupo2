@@ -32,7 +32,7 @@ public class Celda {
         return minasCerca;
     }
 
-    public void setMinasCerca(int minasCerca) {
-        this.minasCerca = minasCerca;
+    public void incrementarMinasCerca() {
+        minasCerca++;
     }
 }
