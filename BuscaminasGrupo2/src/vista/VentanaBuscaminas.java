@@ -15,11 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import modelo.Celda;
+import modelo.Dificultad;
 import modelo.Tablero;
 
 public class VentanaBuscaminas extends JFrame {
 
     private static final long serialVersionUID = 1L;
+    private static Dificultad dificultad;
     private static int filas;
     private static int columnas;
     private static int minas;
@@ -27,10 +29,11 @@ public class VentanaBuscaminas extends JFrame {
     private static JPanel contentPane;
     private static Tablero tablero;
 
-    public VentanaBuscaminas(int columnas, int filas, int minas, Tablero tablero) {
-        this.filas = filas;
-        this.columnas = columnas;
-        this.minas = minas;
+    public VentanaBuscaminas(Dificultad dificultad, Tablero tablero) {
+    	this.dificultad=dificultad;
+        this.filas = dificultad.getFilas();
+        this.columnas = dificultad.getColumnas();
+        this.minas = dificultad.getMinas();
         this.celdas = new ArrayList<>();
         this.tablero = tablero;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -155,5 +158,6 @@ public class VentanaBuscaminas extends JFrame {
             }
         }
     }
+    
 }
 

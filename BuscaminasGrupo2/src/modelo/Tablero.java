@@ -9,10 +9,10 @@ public class Tablero {
     private int filas;
     private int minas;
 
-    public Tablero(int columnas, int filas, int minas) {
-        this.columnas = columnas;
-        this.filas = filas;
-        this.minas = minas;
+    public Tablero(Dificultad dificultad) {
+        this.columnas = dificultad.getColumnas();
+        this.filas = dificultad.getFilas();
+        this.minas = dificultad.getMinas();
         this.celdas = new ArrayList<>(columnas * filas);
         inicializarCeldas();
         generarTablero();

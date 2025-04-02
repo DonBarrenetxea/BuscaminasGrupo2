@@ -14,10 +14,11 @@ public class Main {
 		menuBuscaminas.setVisible(true);
 	}
 	public static void abrirVentanaBuscaminas(Dificultad dificultad) {
-		Tablero tablero = new Tablero(dificultad.getFilas(),dificultad.getColumnas(),dificultad.getMinas());
-		ventanaBuscaminas = new VentanaBuscaminas(dificultad.getColumnas(),dificultad.getFilas(),dificultad.getMinas(), tablero);
+		Tablero tablero = new Tablero(dificultad);
+		ventanaBuscaminas = new VentanaBuscaminas(dificultad, tablero);
 		ventanaBuscaminas.setVisible(true);
 		menuBuscaminas.setVisible(false);
 	}
+	
 	
 }
