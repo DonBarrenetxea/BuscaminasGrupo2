@@ -1,17 +1,24 @@
 package vista;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 import modelo.Celda;
@@ -28,31 +35,52 @@ public class VentanaBuscaminas extends JFrame {
     private static ArrayList<JButton> celdas;
     private static JPanel contentPane;
     private static Tablero tablero;
+    private static JLabel timerCentenas;
+    private static JLabel timerDecenas;
+    private static JLabel timerUnidades;
+    private static Timer timer;
+    private static int segundos = 0;
 
     public VentanaBuscaminas(Dificultad dificultad, Tablero tablero) {
     	this.dificultad=dificultad;
-        this.filas = dificultad.getFilas();
-        this.columnas = dificultad.getColumnas();
-        this.minas = dificultad.getMinas();
-        this.celdas = new ArrayList<>();
+        filas = dificultad.getFilas();
+        columnas = dificultad.getColumnas();
+        minas = dificultad.getMinas();
+        celdas = new ArrayList<>();
         this.tablero = tablero;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(35 * columnas, 35 * filas);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setLayout(new GridLayout(filas, columnas));
+        setSize(35 * columnas, 35 * filas + 50);
         setResizable(false);
+
+        contentPane = new JPanel(new BorderLayout());
         setContentPane(contentPane);
-        agregarCeldas();
+
+        JPanel timerPanel = new JPanel(new FlowLayout());
+        timerCentenas = new JLabel(new ImageIcon("src/images/time0.gif"));
+        timerDecenas = new JLabel(new ImageIcon("src/images/time0.gif"));
+        timerUnidades = new JLabel(new ImageIcon("src/images/time0.gif"));
+        timerPanel.add(timerCentenas);
+        timerPanel.add(timerDecenas);
+        timerPanel.add(timerUnidades);
+        contentPane.add(timerPanel, BorderLayout.NORTH);
+
+        JPanel gridPanel = new JPanel();
+        gridPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        gridPanel.setLayout(new GridLayout(filas, columnas));
+        contentPane.add(gridPanel, BorderLayout.CENTER);
+
+        agregarCeldas(gridPanel);
+
+        iniciarTimer();
     }
 
-    private static void agregarCeldas() {
+    private static void agregarCeldas(JPanel gridPanel) {
         ImageIcon icono = new ImageIcon("src/images/blank.gif");
 
         for (int i = 0; i < filas * columnas; i++) {
             JButton celda = new JButton(icono);
             celdas.add(celda);
-            contentPane.add(celda);
+            gridPanel.add(celda);
 
             final int index = i;
             celda.addMouseListener(new MouseAdapter() {
@@ -158,6 +186,30 @@ public class VentanaBuscaminas extends JFrame {
             }
         }
     }
-    
-}
+    private void iniciarTimer() {
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                segundos++;
+                if (segundos > 999) {
+                    segundos = 999;
+                }
 
+                int centenas = (segundos / 100) % 10;
+                int decenas = (segundos / 10) % 10;
+                int unidades = segundos % 10;
+
+                timerCentenas.setIcon(new ImageIcon("src/images/time" + centenas + ".gif"));
+                timerDecenas.setIcon(new ImageIcon("src/images/time" + decenas + ".gif"));
+                timerUnidades.setIcon(new ImageIcon("src/images/time" + unidades + ".gif"));
+            }
+        });
+        timer.start();
+    }
+
+    private void detenerTimer() {
+        if (timer != null) {
+            timer.stop();
+        }
+    }
+}
