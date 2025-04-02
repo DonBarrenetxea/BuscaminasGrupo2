@@ -9,7 +9,7 @@ import vista.VentanaRanking;
 public class Main {
 	private static MenuBuscaminas menuBuscaminas;
 	private static VentanaBuscaminas ventanaBuscaminas;
-	
+	private static VentanaRanking ventanaRanking;
 	public static void main(String[] args) {
 		menuBuscaminas = new MenuBuscaminas();
 		menuBuscaminas.setVisible(true);
@@ -21,10 +21,9 @@ public class Main {
 		menuBuscaminas.setVisible(false);
 	}
 	public static void abrirVentanaRanking(Dificultad dificultad) {
-		VentanaRanking vr = new VentanaRanking();
-		if(Dificultad.FACIL != null) {
-			
-		}
+		ventanaRanking = new VentanaRanking();
+		ventanaRanking.setVisible(true);
+		ventanaBuscaminas.setAlwaysOnTop(false);
 	}
 	
 }

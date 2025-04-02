@@ -5,14 +5,23 @@ public class Celda {
     private boolean esMina;
     private boolean abierta;
     private int minasCerca;
+    private boolean banderaMarcada;
 
     public Celda() {
         this.esMina = false;
         this.abierta = false;
         this.minasCerca = 0;
+        this.banderaMarcada=false;
     }
 
-    public boolean esMina() {
+    public void setBanderaMarcada(boolean banderaMarcada) {
+		this.banderaMarcada = banderaMarcada;
+	}
+    public boolean getBanderaMarcada() {
+		return banderaMarcada;
+	}
+
+	public boolean esMina() {
         return esMina;
     }
 

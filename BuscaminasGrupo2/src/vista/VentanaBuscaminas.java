@@ -1,10 +1,9 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -19,7 +18,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import javax.swing.border.EmptyBorder;
 
 import modelo.Celda;
 import modelo.Dificultad;
@@ -38,8 +36,11 @@ public class VentanaBuscaminas extends JFrame {
     private static JLabel timerCentenas;
     private static JLabel timerDecenas;
     private static JLabel timerUnidades;
+    private static JLabel flagDecenas;
+    private static JLabel flagUnidades;
     private static Timer timer;
     private static int segundos = 0;
+    private static int banderas = minas;
 
     public VentanaBuscaminas(Dificultad dificultad, Tablero tablero) {
     	this.dificultad=dificultad;
@@ -54,15 +55,39 @@ public class VentanaBuscaminas extends JFrame {
 
         contentPane = new JPanel(new BorderLayout());
         setContentPane(contentPane);
-
+        JPanel topPanel = new JPanel(new FlowLayout());
+        
+        JPanel flagPanel = new JPanel(new FlowLayout());
+        ImageIcon iconoFlag = new ImageIcon("src/images/flag_icon.png");
+        Image imagenEscaladaFlag = iconoFlag.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+        JLabel imagenFlag = new JLabel(new ImageIcon(imagenEscaladaFlag));
+        flagDecenas = new JLabel(new ImageIcon("src/images/time"+minas/10+".gif"));
+        flagUnidades = new JLabel(new ImageIcon("src/images/time"+minas%10+".gif"));
+        flagPanel.add(imagenFlag);
+        flagPanel.add(flagDecenas);
+        flagPanel.add(flagUnidades);
+        topPanel.add(flagPanel);
+        
+        JPanel divididor = new JPanel (new FlowLayout());
+        topPanel.add(divididor);
+        
         JPanel timerPanel = new JPanel(new FlowLayout());
+        ImageIcon iconoOriginalClock = new ImageIcon("src/images/clock_icon.png");
+        Image imagenEscaladaClock = iconoOriginalClock.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+        JLabel imagenTiempo = new JLabel(new ImageIcon(imagenEscaladaClock));
         timerCentenas = new JLabel(new ImageIcon("src/images/time0.gif"));
         timerDecenas = new JLabel(new ImageIcon("src/images/time0.gif"));
         timerUnidades = new JLabel(new ImageIcon("src/images/time0.gif"));
+        timerPanel.add(imagenTiempo);
         timerPanel.add(timerCentenas);
         timerPanel.add(timerDecenas);
         timerPanel.add(timerUnidades);
-        contentPane.add(timerPanel, BorderLayout.NORTH);
+        topPanel.add(timerPanel);
+        
+        
+        
+        contentPane.add(topPanel, BorderLayout.NORTH);
+        
 
         JPanel gridPanel = new JPanel();
         gridPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -91,12 +116,38 @@ public class VentanaBuscaminas extends JFrame {
                             revelarCelda(index);
                         }
                     } else if (e.getButton() == MouseEvent.BUTTON3) {
+                    	ponerBandera(index);
+                    	Celda celdaElegida = tablero.getCeldas().get(index);
+                    	celdaElegida.setBanderaMarcada(true);
                     }
                 }
             });
         }
     }
-
+    private static void ponerBandera(int posicion) {
+    	 List<Celda> celdasTablero = tablero.getCeldas();
+         Celda celdaElegida = celdasTablero.get(posicion);
+         JButton botonCelda = celdas.get(posicion);
+         
+         if (celdaElegida.esAbierta()) {
+             return;
+         }
+         String rutaImagen = "src/images/bombflagged.gif";
+         botonCelda.setIcon(new ImageIcon(rutaImagen));
+         celdaElegida.setBanderaMarcada(true);
+         actualizarFlags();
+    }
+    private static int calcularBanderas() {
+    	List<Celda> celdasTablero = tablero.getCeldas();
+    	int banderasPuestas=minas;
+    	for(int i=0;i<celdasTablero.size();i++) {
+    		Celda celdaElegida = celdasTablero.get(i);
+    		if(celdaElegida.getBanderaMarcada()==true){
+    			banderasPuestas--;
+    		}
+    	}
+    	return banderasPuestas;
+    }
     private static void revelarCelda(int posicion) {
         List<Celda> celdasTablero = tablero.getCeldas();
         Celda celdaElegida = celdasTablero.get(posicion);
@@ -105,7 +156,10 @@ public class VentanaBuscaminas extends JFrame {
         if (celdaElegida.esAbierta()) {
             return;
         }
-
+        if (celdaElegida.getBanderaMarcada()==true){
+        	celdaElegida.setBanderaMarcada(false);
+        }
+        actualizarFlags();
         if (celdaElegida.esMina()) {
             botonCelda.setIcon(new ImageIcon("src/images/bombdeath.gif"));
         } else {
@@ -140,6 +194,7 @@ public class VentanaBuscaminas extends JFrame {
                 default:
                     rutaImagen = "src/images/open0.gif";
                     revelarCeldasCercanas(posicion, celdasTablero);
+                    actualizarFlags();
                     break;
             }
 
@@ -158,7 +213,9 @@ public class VentanaBuscaminas extends JFrame {
 
         celdaElegidaCerca.marcarComoAbierta();
         botonCeldaCerca.setIcon(new ImageIcon("src/images/open" + celdaElegidaCerca.getMinasCerca() + ".gif"));
-
+        if (celdaElegidaCerca.getBanderaMarcada()==true){
+        	celdaElegidaCerca.setBanderaMarcada(false);
+        }
         if (celdaElegidaCerca.getMinasCerca() == 0) {
             if (posicion - columnas >= 0) {
                 revelarCeldasCercanas(posicion - columnas, celdasTablero); 
@@ -184,7 +241,17 @@ public class VentanaBuscaminas extends JFrame {
             if (posicion + columnas + 1 < celdas.size() && posicion % columnas != columnas - 1) {
                 revelarCeldasCercanas(posicion + columnas + 1, celdasTablero);
             }
+            
         }
+    }
+    private static void actualizarFlags() {
+        banderas = calcularBanderas();
+
+        int decenasFlag = banderas / 10;
+        int unidadesFlag = banderas % 10;
+
+        flagDecenas.setIcon(new ImageIcon("src/images/time" + decenasFlag + ".gif"));
+        flagUnidades.setIcon(new ImageIcon("src/images/time" + unidadesFlag + ".gif"));
     }
     private void iniciarTimer() {
         timer = new Timer(1000, new ActionListener() {
