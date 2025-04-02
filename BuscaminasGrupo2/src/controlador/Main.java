@@ -4,6 +4,7 @@ import modelo.Dificultad;
 import modelo.Tablero;
 import vista.MenuBuscaminas;
 import vista.VentanaBuscaminas;
+import vista.VentanaRanking;
 
 public class Main {
 	private static MenuBuscaminas menuBuscaminas;
@@ -19,6 +20,11 @@ public class Main {
 		ventanaBuscaminas.setVisible(true);
 		menuBuscaminas.setVisible(false);
 	}
-	
+	public static void abrirVentanaRanking(Dificultad dificultad) {
+		VentanaRanking vr = new VentanaRanking();
+		if(Dificultad.FACIL != null) {
+			
+		}
+	}
 	
 }
