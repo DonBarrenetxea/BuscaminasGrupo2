@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import controlador.Main;
 import modelo.Celda;
 import modelo.Dificultad;
 import modelo.Tablero;
@@ -118,9 +119,15 @@ public class VentanaBuscaminas extends JFrame {
 						}
 					} else if (e.getButton() == MouseEvent.BUTTON3) {
 						if (calcularBanderas() != 0) {
-							ponerBandera(index);
+							
 							Celda celdaElegida = tablero.getCeldas().get(index);
+							if (celdaElegida.getBanderaMarcada()!=true && !celdaElegida.esAbierta()) {
+							ponerBandera(index);
 							celdaElegida.setBanderaMarcada(true);
+							}else if(!celdaElegida.esAbierta()){
+								JButton botonCelda = celdas.get(index);
+								botonCelda.setIcon(new ImageIcon("src/images/blank.gif"));
+							}
 						}
 					}
 				}
@@ -158,7 +165,7 @@ public class VentanaBuscaminas extends JFrame {
 		List<Celda> celdasTablero = tablero.getCeldas();
 		Celda celdaElegida = celdasTablero.get(posicion);
 		JButton botonCelda = celdas.get(posicion);
-
+		
 		if (celdaElegida.esAbierta()) {
 			return;
 		}
@@ -177,6 +184,7 @@ public class VentanaBuscaminas extends JFrame {
 			reinicio.repaint();
 			
 		} else {
+			
 			int minasCerca = celdaElegida.getMinasCerca();
 			String rutaImagen = "";
 
@@ -191,6 +199,21 @@ public class VentanaBuscaminas extends JFrame {
 			botonCelda.setIcon(new ImageIcon(rutaImagen));
 		}
 		celdaElegida.marcarComoAbierta();
+		if (!quedanCeldasTapadas()) {
+		    ImageIcon imagenReinicioSinEscalar = new ImageIcon("src/images/caritaGuay.png");
+		    Image imagenReinicioEscalada = imagenReinicioSinEscalar.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+		    imagenReinicio.setIcon(new ImageIcon(imagenReinicioEscalada));
+		    reinicio.revalidate();
+		    reinicio.repaint();
+		    detenerTimer();
+		    
+		    JOptionPane.showMessageDialog(null, 
+		            "¡Has ganado!", 
+		            "Fin del juego", 
+		            JOptionPane.INFORMATION_MESSAGE);
+
+		        Main.abrirVentanaRanking(dificultad); 
+		}
 	}
 
 	private static void revelarCeldasCercanas(int posicion, List<Celda> celdasTablero) {
@@ -288,9 +311,16 @@ public class VentanaBuscaminas extends JFrame {
 				botonCelda.setIcon(new ImageIcon("src/images/bombrevealed.gif"));
 			} else if (celda.getBanderaMarcada()) {
 				botonCelda.setIcon(new ImageIcon("src/images/bombmisflagged.gif"));
-			} else {
-				botonCelda.setIcon(new ImageIcon("src/images/open" + celda.getMinasCerca() + ".gif"));
-			}
+			} 
 		}
+	}
+	private static boolean quedanCeldasTapadas() {
+	    List<Celda> celdasTablero = tablero.getCeldas();
+	    for (int i = 0; i < celdasTablero.size(); i++) {
+	        if (!celdasTablero.get(i).esAbierta() && !celdasTablero.get(i).esMina()) {
+	            return true; 
+	        }
+	    }
+	    return false;
 	}
 }

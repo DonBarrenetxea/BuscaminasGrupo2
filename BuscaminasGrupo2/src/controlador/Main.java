@@ -23,6 +23,7 @@ public class Main {
 	public static void abrirVentanaRanking(Dificultad dificultad) {
 		ventanaRanking = new VentanaRanking();
 		ventanaRanking.setVisible(true);
+		ventanaBuscaminas.setVisible(false);
 		ventanaBuscaminas.setAlwaysOnTop(false);
 	}
 	
