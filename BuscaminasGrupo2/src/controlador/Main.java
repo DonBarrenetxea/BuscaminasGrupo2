@@ -26,5 +26,8 @@ public class Main {
 		ventanaBuscaminas.setVisible(false);
 		ventanaBuscaminas.setAlwaysOnTop(false);
 	}
-	
+	public static void abrirMenuBuscaminas() {
+		ventanaBuscaminas.setVisible(false);
+		menuBuscaminas.setVisible(true);
+	}
 }

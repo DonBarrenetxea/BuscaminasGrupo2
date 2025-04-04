@@ -111,8 +111,10 @@ public class VentanaBuscaminas extends JFrame {
 
 			final int index = i;
 			celda.addMouseListener(new MouseAdapter() {
+				
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					
 					if (e.getButton() == MouseEvent.BUTTON1) {
 						if (!tablero.getCeldas().get(index).esAbierta()) {
 							revelarCelda(index);
@@ -126,8 +128,10 @@ public class VentanaBuscaminas extends JFrame {
 							celdaElegida.setBanderaMarcada(true);
 							}else if(!celdaElegida.esAbierta()){
 								JButton botonCelda = celdas.get(index);
+								celdaElegida.setBanderaMarcada(false);
 								botonCelda.setIcon(new ImageIcon("src/images/blank.gif"));
 							}
+							actualizarFlags();
 						}
 					}
 				}
@@ -313,6 +317,16 @@ public class VentanaBuscaminas extends JFrame {
 				botonCelda.setIcon(new ImageIcon("src/images/bombmisflagged.gif"));
 			} 
 		}
+		 
+		 JOptionPane.showMessageDialog(null, 
+		            "¡Has perdido!", 
+		            "Fin del juego", 
+		            JOptionPane.INFORMATION_MESSAGE);
+		 
+		 		
+		        Main.abrirMenuBuscaminas();
+		        segundos=0;
+		 
 	}
 	private static boolean quedanCeldasTapadas() {
 	    List<Celda> celdasTablero = tablero.getCeldas();

@@ -41,7 +41,7 @@ public class MenuBuscaminas extends JFrame {
 
         JLabel lblNewLabel_1 = new JLabel("BUSCAMINAS GRUPO 2");
         lblNewLabel_1.setBackground(new Color(0, 0, 128));
-        lblNewLabel_1.setForeground(new Color(249, 244, 198));
+        lblNewLabel_1.setForeground(new Color(0, 255, 255));
         lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
         GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
         gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
