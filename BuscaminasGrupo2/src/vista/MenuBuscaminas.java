@@ -15,6 +15,7 @@ import javax.swing.text.*;
 
 import controlador.Main;
 import modelo.Dificultad;
+import modelo.GestorSonidos;
 
 public class MenuBuscaminas extends JFrame {
 
@@ -70,9 +71,11 @@ public class MenuBuscaminas extends JFrame {
         btnNewButton_3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String nombre = textField.getText().trim();
+                GestorSonidos.playOnce("src/images/select.wav", -5.0f);
                 if (nombre.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Por favor, ingrese un nombre antes de jugar.", "Error", JOptionPane.WARNING_MESSAGE);
                 } else {
+                	
                     Main.abrirVentanaBuscaminas(dificultad);
                 }
             }
@@ -173,6 +176,7 @@ public class MenuBuscaminas extends JFrame {
         btnNewButton.setBackground(new Color(249, 244, 198));
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	GestorSonidos.playOnce("src/images/select.wav", -5.0f);
                 lblNewLabel_2.setText("Facil");
                 dificultad = Dificultad.FACIL;
             }
@@ -184,6 +188,7 @@ public class MenuBuscaminas extends JFrame {
         btnNewButton_1.setBackground(new Color(249, 244, 198));
         btnNewButton_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	GestorSonidos.playOnce("src/images/select.wav", -5.0f);
                 lblNewLabel_2.setText("Normal");
                 dificultad = Dificultad.MEDIO;
             }
@@ -195,6 +200,7 @@ public class MenuBuscaminas extends JFrame {
         btnNewButton_2.setBackground(new Color(249, 244, 198));
         btnNewButton_2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	GestorSonidos.playOnce("src/images/select.wav", -5.0f);
                 lblNewLabel_2.setText("Dificil");
                 dificultad = Dificultad.DIFICIL;
             }

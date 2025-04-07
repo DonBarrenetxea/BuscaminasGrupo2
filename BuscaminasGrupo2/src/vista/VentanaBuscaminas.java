@@ -23,6 +23,7 @@ import javax.swing.Timer;
 import controlador.Main;
 import modelo.Celda;
 import modelo.Dificultad;
+import modelo.GestorSonidos;
 import modelo.Tablero;
 
 public class VentanaBuscaminas extends JFrame {
@@ -121,7 +122,7 @@ public class VentanaBuscaminas extends JFrame {
 						}
 					} else if (e.getButton() == MouseEvent.BUTTON3) {
 						if (calcularBanderas() != 0) {
-							
+							GestorSonidos.playOnce("src/images/flag.wav", 6.0f);
 							Celda celdaElegida = tablero.getCeldas().get(index);
 							if (celdaElegida.getBanderaMarcada()!=true && !celdaElegida.esAbierta()) {
 							ponerBandera(index);
@@ -173,20 +174,21 @@ public class VentanaBuscaminas extends JFrame {
 		if (celdaElegida.esAbierta()) {
 			return;
 		}
+		GestorSonidos.playOnce("src/images/celda.wav", -3.0f);
 		if (celdaElegida.getBanderaMarcada() == true) {
 			celdaElegida.setBanderaMarcada(false);
 		}
 		actualizarFlags();
 		if (celdaElegida.esMina()) {
-			mostrarTablero();
 			botonCelda.setIcon(new ImageIcon("src/images/bombdeath.gif"));
+			GestorSonidos.playOnce("src/images/explosion.wav", 6.0f);
 			ImageIcon imagenReinicioSinEscalar = new ImageIcon("src/images/caritaMuerta.png");
 			Image imagenReinicioEscalada = imagenReinicioSinEscalar.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 			ImageIcon imagenReinicioFinal = new ImageIcon(imagenReinicioEscalada);
 			imagenReinicio.setIcon(imagenReinicioFinal);
+			mostrarTablero(posicion);
 			reinicio.revalidate();
 			reinicio.repaint();
-			
 		} else {
 			
 			int minasCerca = celdaElegida.getMinasCerca();
@@ -204,6 +206,7 @@ public class VentanaBuscaminas extends JFrame {
 		}
 		celdaElegida.marcarComoAbierta();
 		if (!quedanCeldasTapadas()) {
+			GestorSonidos.playOnce("src/images/win.wav", 8.0f);
 		    ImageIcon imagenReinicioSinEscalar = new ImageIcon("src/images/caritaGuay.png");
 		    Image imagenReinicioEscalada = imagenReinicioSinEscalar.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 		    imagenReinicio.setIcon(new ImageIcon(imagenReinicioEscalada));
@@ -279,7 +282,7 @@ public class VentanaBuscaminas extends JFrame {
 				segundos++;
 				if (segundos > 999) {
 					segundos = 999;
-					mostrarTablero();
+					mostrarTablero(-1);
 					JOptionPane.showMessageDialog(null, "¡Se acabó el tiempo!", "Fin del juego",
 							JOptionPane.WARNING_MESSAGE);
 				}
@@ -303,7 +306,7 @@ public class VentanaBuscaminas extends JFrame {
 		}
 	}
 
-	private static void mostrarTablero() {
+	private static void mostrarTablero(int posicion) {
 		detenerTimer();
 		List<Celda> celdasTablero = tablero.getCeldas();
 
@@ -311,11 +314,15 @@ public class VentanaBuscaminas extends JFrame {
 			Celda celda = celdasTablero.get(i);
 			JButton botonCelda = celdas.get(i);
 
-			if (celda.esMina()) {
+			if (celda.esMina()&&i!=posicion) {
 				botonCelda.setIcon(new ImageIcon("src/images/bombrevealed.gif"));
 			} else if (celda.getBanderaMarcada()) {
 				botonCelda.setIcon(new ImageIcon("src/images/bombmisflagged.gif"));
 			} 
+			
+			if (celda.getBanderaMarcada()&&celda.esMina()) {
+				botonCelda.setIcon(new ImageIcon("src/images/bombflagged.gif"));
+			}
 		}
 		 
 		 JOptionPane.showMessageDialog(null, 

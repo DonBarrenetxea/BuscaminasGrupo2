@@ -1,6 +1,7 @@
 package controlador;
 
 import modelo.Dificultad;
+import modelo.GestorSonidos;
 import modelo.Tablero;
 import vista.MenuBuscaminas;
 import vista.VentanaBuscaminas;
@@ -13,6 +14,9 @@ public class Main {
 	public static void main(String[] args) {
 		menuBuscaminas = new MenuBuscaminas();
 		menuBuscaminas.setVisible(true);
+		GestorSonidos soundManager = new GestorSonidos();
+		soundManager.playLoop("src/images/ambient.wav", -10.0f);
+
 	}
 	public static void abrirVentanaBuscaminas(Dificultad dificultad) {
 		Tablero tablero = new Tablero(dificultad);
