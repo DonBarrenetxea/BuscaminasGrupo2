@@ -1,7 +1,11 @@
 package controlador;
 
+import java.util.List;
+
 import modelo.Dificultad;
 import modelo.GestorSonidos;
+import modelo.Jugador;
+import modelo.Ranking;
 import modelo.Tablero;
 import vista.MenuBuscaminas;
 import vista.VentanaBuscaminas;
@@ -11,6 +15,8 @@ public class Main {
 	private static MenuBuscaminas menuBuscaminas;
 	private static VentanaBuscaminas ventanaBuscaminas;
 	private static VentanaRanking ventanaRanking;
+	
+	
 	public static void main(String[] args) {
 		menuBuscaminas = new MenuBuscaminas();
 		menuBuscaminas.setVisible(true);
@@ -24,8 +30,9 @@ public class Main {
 		ventanaBuscaminas.setVisible(true);
 		menuBuscaminas.setVisible(false);
 	}
-	public static void abrirVentanaRanking(Dificultad dificultad) {
-		ventanaRanking = new VentanaRanking();
+	public static void abrirVentanaRanking(Dificultad dificultad, Ranking ranking) {
+		List<Jugador> top = ranking.getTopJugadores(dificultad);
+		ventanaRanking = new VentanaRanking(top);
 		ventanaRanking.setVisible(true);
 		ventanaBuscaminas.setVisible(false);
 		ventanaBuscaminas.setAlwaysOnTop(false);
@@ -34,4 +41,5 @@ public class Main {
 		ventanaBuscaminas.setVisible(false);
 		menuBuscaminas.setVisible(true);
 	}
+
 }

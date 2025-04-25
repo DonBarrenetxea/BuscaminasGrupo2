@@ -24,6 +24,7 @@ import controlador.Main;
 import modelo.Celda;
 import modelo.Dificultad;
 import modelo.GestorSonidos;
+import modelo.Ranking;
 import modelo.Tablero;
 
 public class VentanaBuscaminas extends JFrame {
@@ -47,6 +48,7 @@ public class VentanaBuscaminas extends JFrame {
 	private static Timer timer;
 	private static int segundos = 0;
 	private static int banderas = minas;
+	private static Ranking ranking;
 
 	public VentanaBuscaminas(Dificultad dificultad, Tablero tablero) {
 		this.dificultad = dificultad;
@@ -219,7 +221,7 @@ public class VentanaBuscaminas extends JFrame {
 		            "Fin del juego", 
 		            JOptionPane.INFORMATION_MESSAGE);
 
-		        Main.abrirVentanaRanking(dificultad); 
+		        Main.abrirVentanaRanking(dificultad, ranking); 
 		}
 	}
 
