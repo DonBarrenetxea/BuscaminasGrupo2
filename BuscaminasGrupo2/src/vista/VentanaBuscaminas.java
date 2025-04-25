@@ -217,13 +217,15 @@ public class VentanaBuscaminas extends JFrame {
 		    imagenReinicio.setIcon(new ImageIcon(imagenReinicioEscalada));
 		    reinicio.revalidate();
 		    reinicio.repaint();
-		    detenerTimer();
+		    
 		    
 		    JOptionPane.showMessageDialog(null, 
 		            "¡Has ganado!", 
 		            "Fin del juego", 
 		            JOptionPane.INFORMATION_MESSAGE);
 		    ranking.agregarJugador(dificultad, nombre, dificultad.getColumnas()*dificultad.getFilas()-dificultad.getMinas(), 0, segundos);
+		    detenerTimer();
+		    ranking.guardarRanking("src/Ranking.txt");
 		        Main.abrirVentanaRanking(dificultad, ranking); 
 		}
 	}
