@@ -76,7 +76,7 @@ public class MenuBuscaminas extends JFrame {
                     JOptionPane.showMessageDialog(null, "Por favor, ingrese un nombre antes de jugar.", "Error", JOptionPane.WARNING_MESSAGE);
                 } else {
                 	
-                    Main.abrirVentanaBuscaminas(dificultad);
+                    Main.abrirVentanaBuscaminas(dificultad, textField.getText());
                 }
             }
         });

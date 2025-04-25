@@ -49,8 +49,11 @@ public class VentanaBuscaminas extends JFrame {
 	private static int segundos = 0;
 	private static int banderas = minas;
 	private static Ranking ranking;
+	private static String nombre;
 
-	public VentanaBuscaminas(Dificultad dificultad, Tablero tablero) {
+	public VentanaBuscaminas(Dificultad dificultad, Tablero tablero, Ranking ranking, String nombre) {
+		this.nombre=nombre;
+		this.ranking=ranking;
 		this.dificultad = dificultad;
 		filas = dificultad.getFilas();
 		columnas = dificultad.getColumnas();
@@ -220,7 +223,7 @@ public class VentanaBuscaminas extends JFrame {
 		            "¡Has ganado!", 
 		            "Fin del juego", 
 		            JOptionPane.INFORMATION_MESSAGE);
-
+		    ranking.agregarJugador(dificultad, nombre, dificultad.getColumnas()*dificultad.getFilas()-dificultad.getMinas(), 0, segundos);
 		        Main.abrirVentanaRanking(dificultad, ranking); 
 		}
 	}

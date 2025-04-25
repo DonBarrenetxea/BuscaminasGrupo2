@@ -15,18 +15,22 @@ public class Main {
 	private static MenuBuscaminas menuBuscaminas;
 	private static VentanaBuscaminas ventanaBuscaminas;
 	private static VentanaRanking ventanaRanking;
+	private static Ranking ranking;
 	
 	
 	public static void main(String[] args) {
+		ranking = new Ranking();
+		ranking.cargarRanking("src/Ranking.txt");
+		
 		menuBuscaminas = new MenuBuscaminas();
 		menuBuscaminas.setVisible(true);
 		GestorSonidos soundManager = new GestorSonidos();
 		soundManager.playLoop("src/images/ambient.wav", -10.0f);
-
+		
 	}
-	public static void abrirVentanaBuscaminas(Dificultad dificultad) {
+	public static void abrirVentanaBuscaminas(Dificultad dificultad, String nombre) {
 		Tablero tablero = new Tablero(dificultad);
-		ventanaBuscaminas = new VentanaBuscaminas(dificultad, tablero);
+		ventanaBuscaminas = new VentanaBuscaminas(dificultad, tablero, ranking, nombre);
 		ventanaBuscaminas.setVisible(true);
 		menuBuscaminas.setVisible(false);
 	}
