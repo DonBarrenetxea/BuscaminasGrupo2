@@ -17,7 +17,7 @@ public class Main {
 	private static VentanaRanking ventanaRanking;
 	private static Ranking ranking;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { 	
 		ranking = new Ranking();
 		ranking.cargarRanking("src/Ranking.txt");
 
@@ -35,17 +35,27 @@ public class Main {
 		menuBuscaminas.setVisible(false);
 	}
 
-	public static void abrirVentanaRanking(Dificultad dificultad, Ranking ranking) {
-		List<Jugador> top = ranking.getTopJugadores(dificultad);
-		ventanaRanking = new VentanaRanking(top);
-		ventanaRanking.setVisible(true);
-		ventanaBuscaminas.setVisible(false);
-		ventanaBuscaminas.setAlwaysOnTop(false);
+	public static void abrirVentanaRanking(Dificultad dificultad) {
+	    List<Jugador> topJugadores = ranking.getTopJugadores(dificultad);
+	    ventanaRanking = new VentanaRanking(topJugadores, dificultad);
+	    ventanaRanking.setVisible(true);
+	    ventanaBuscaminas.setVisible(false);
+	    ventanaBuscaminas.setAlwaysOnTop(false);
 	}
 
 	public static void abrirMenuBuscaminas(Ranking ranking) {
-		ventanaBuscaminas.setVisible(false);
-		menuBuscaminas.setVisible(true);
+	    if (ventanaBuscaminas != null) {
+	        ventanaBuscaminas.setVisible(false);
+	    }
+	    menuBuscaminas = new MenuBuscaminas(ranking);
+	    menuBuscaminas.setVisible(true);
 	}
+
+	public static Ranking getRanking() {
+		return ranking;
+	}
+	
+
+	
 
 }

@@ -2,8 +2,15 @@ package vista;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controlador.Main;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
+
+import modelo.Dificultad;
 import modelo.Jugador;
 
 public class VentanaRanking extends JFrame {
@@ -11,9 +18,9 @@ public class VentanaRanking extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	public VentanaRanking(List<Jugador> topJugadores) {
+	public VentanaRanking(List<Jugador> topJugadores, Dificultad dificultad) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(1023, 600);
+		setSize(900, 600);
 		setLocationRelativeTo(null);
 
 		contentPane = new JPanel();
@@ -21,39 +28,39 @@ public class VentanaRanking extends JFrame {
 		contentPane.setBorder(new EmptyBorder(20, 20, 20, 20));
 		setContentPane(contentPane);
 
-		JLabel titulo = new JLabel("Ranking Buscaminas", SwingConstants.CENTER);
-		titulo.setFont(new Font("Tahoma", Font.BOLD, 26));
-		titulo.setForeground(new Color(0, 128, 64));
-		titulo.setBounds(350, 20, 300, 40);
-		contentPane.add(titulo);
+		JLabel titulo = new JLabel("Ranking Buscaminas - " + dificultad.toString(), SwingConstants.CENTER);
+	    titulo.setFont(new Font("Tahoma", Font.BOLD, 26));
+	    titulo.setForeground(new Color(0, 128, 64));
+	    titulo.setBounds(200, 21, 500, 40); 
+	    contentPane.add(titulo);
 
 		JLabel lblId = new JLabel("Id");
-		lblId.setBounds(60, 80, 50, 25);
+		lblId.setBounds(54, 80, 50, 25);
 		lblId.setFont(new Font("Tahoma", Font.BOLD, 16));
 		contentPane.add(lblId);
 
 		JLabel lblJugador = new JLabel("Jugador");
-		lblJugador.setBounds(150, 80, 100, 25);
+		lblJugador.setBounds(127, 80, 100, 25);
 		lblJugador.setFont(new Font("Tahoma", Font.BOLD, 16));
 		contentPane.add(lblJugador);
 
 		JLabel lblDificultad = new JLabel("Dificultad");
-		lblDificultad.setBounds(289, 80, 100, 25);
+		lblDificultad.setBounds(239, 80, 100, 25);
 		lblDificultad.setFont(new Font("Tahoma", Font.BOLD, 16));
 		contentPane.add(lblDificultad);
 
 		JLabel lblCasillas = new JLabel("Casillas Descubiertas");
-		lblCasillas.setBounds(437, 80, 180, 25);
+		lblCasillas.setBounds(360, 80, 180, 25);
 		lblCasillas.setFont(new Font("Tahoma", Font.BOLD, 16));
 		contentPane.add(lblCasillas);
 
 		JLabel lblTiempo = new JLabel("Tiempo");
-		lblTiempo.setBounds(696, 80, 80, 25);
+		lblTiempo.setBounds(595, 80, 80, 25);
 		lblTiempo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		contentPane.add(lblTiempo);
 
 		JLabel lblPuntuacion = new JLabel("Puntuación");
-		lblPuntuacion.setBounds(820, 80, 100, 25);
+		lblPuntuacion.setBounds(724, 80, 100, 25);
 		lblPuntuacion.setFont(new Font("Tahoma", Font.BOLD, 16));
 		contentPane.add(lblPuntuacion);
 
@@ -86,6 +93,19 @@ public class VentanaRanking extends JFrame {
 			JLabel lblPuntuacionDato = new JLabel(String.format("%.2f", jugador.getPuntuaje()));
 			lblPuntuacionDato.setBounds(760, startY + (i * incrementoY), 80, 25);
 			contentPane.add(lblPuntuacionDato);
+					
 		}
+		JButton botonVolver = new JButton("Volver al Menu");
+        botonVolver.setFont(new Font("Tahoma", Font.BOLD, 16));
+        botonVolver.setBounds(360, 500, 200, 40);
+        contentPane.add(botonVolver);
+
+        botonVolver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); 
+                Main.abrirMenuBuscaminas(Main.getRanking());
+            }
+        });
 	}
 }

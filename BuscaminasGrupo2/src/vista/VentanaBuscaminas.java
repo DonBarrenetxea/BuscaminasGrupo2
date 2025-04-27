@@ -226,7 +226,7 @@ public class VentanaBuscaminas extends JFrame {
 					dificultad.getColumnas() * dificultad.getFilas() - dificultad.getMinas(), 0, segundos);
 			detenerTimer();
 			ranking.guardarRanking("src/Ranking.txt");
-			Main.abrirVentanaRanking(dificultad, ranking);
+			Main.abrirVentanaRanking(dificultad);
 		}
 	}
 

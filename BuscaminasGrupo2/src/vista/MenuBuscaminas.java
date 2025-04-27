@@ -90,7 +90,7 @@ public class MenuBuscaminas extends JFrame {
 		btnNewButton_4.setBackground(new Color(249, 244, 198));
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.abrirVentanaRanking(dificultad, ranking);
+				Main.abrirVentanaRanking(dificultad);
 			}
 		});
 		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
