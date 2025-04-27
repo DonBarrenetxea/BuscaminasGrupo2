@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -51,7 +52,9 @@ public class VentanaBuscaminas extends JFrame {
 	private static Ranking ranking;
 	private static String nombre;
 
-	public VentanaBuscaminas(Dificultad dificultad, Tablero tablero, Ranking ranking, String nombre) {
+	public VentanaBuscaminas(Dificultad dificultad, Ranking ranking, String nombre) {
+		setTitle("Buscaminas G2");
+		setIconImage(new ImageIcon(getClass().getResource("/images/pixel_art.png")).getImage());
 		this.nombre = nombre;
 		this.ranking = ranking;
 		this.dificultad = dificultad;
@@ -59,7 +62,7 @@ public class VentanaBuscaminas extends JFrame {
 		columnas = dificultad.getColumnas();
 		minas = dificultad.getMinas();
 		celdas = new ArrayList<>();
-		this.tablero = tablero;
+		tablero = new Tablero(dificultad);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(35 * columnas, 35 * filas + 50);
 		setResizable(false);
@@ -67,8 +70,9 @@ public class VentanaBuscaminas extends JFrame {
 		contentPane = new JPanel(new BorderLayout());
 		setContentPane(contentPane);
 		JPanel topPanel = new JPanel(new FlowLayout());
-
+		topPanel.setBackground(new Color(0, 255, 255));
 		JPanel flagPanel = new JPanel(new FlowLayout());
+		flagPanel.setBackground(new Color(0, 255, 255));
 		flagCentenas = new JLabel(new ImageIcon("src/images/time0.gif"));
 		flagDecenas = new JLabel(new ImageIcon("src/images/time" + minas / 10 + ".gif"));
 		flagUnidades = new JLabel(new ImageIcon("src/images/time" + minas % 10 + ".gif"));
@@ -82,7 +86,25 @@ public class VentanaBuscaminas extends JFrame {
 		Image imagenReinicioEscalada = imagenReinicioSinEscalar.getImage().getScaledInstance(45, 45,
 				Image.SCALE_SMOOTH);
 		imagenReinicio = new JLabel(new ImageIcon(imagenReinicioEscalada));
+		imagenReinicio.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        detenerTimer();
+		        tablero = new Tablero(dificultad);
+		        segundos = 0;
+		        banderas = minas;
+		        actualizarFlags();
+		        JPanel gridPanel = (JPanel) contentPane.getComponent(1);
+		        gridPanel.removeAll();
+		        celdas.clear();
+		        agregarCeldas(gridPanel);
+		        gridPanel.revalidate();
+		        gridPanel.repaint();
+		        iniciarTimer();
+		    }
+		});
 		reinicio.add(imagenReinicio);
+		reinicio.setBackground(new Color(0, 255, 255));
 		topPanel.add(reinicio);
 
 		JPanel timerPanel = new JPanel(new FlowLayout());
@@ -94,6 +116,7 @@ public class VentanaBuscaminas extends JFrame {
 		timerPanel.add(timerCentenas);
 		timerPanel.add(timerDecenas);
 		timerPanel.add(timerUnidades);
+		timerPanel.setBackground(new Color(0, 255, 255));
 		topPanel.add(timerPanel);
 
 		contentPane.add(topPanel, BorderLayout.NORTH);
@@ -101,6 +124,7 @@ public class VentanaBuscaminas extends JFrame {
 		JPanel gridPanel = new JPanel();
 		gridPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		gridPanel.setLayout(new GridLayout(filas, columnas));
+		gridPanel.setBackground(new Color(0, 255, 255));
 		contentPane.add(gridPanel, BorderLayout.CENTER);
 
 		agregarCeldas(gridPanel);

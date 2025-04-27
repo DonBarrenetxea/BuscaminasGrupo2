@@ -27,6 +27,8 @@ public class MenuBuscaminas extends JFrame {
 	private Ranking ranking;
 
 	public MenuBuscaminas(Ranking ranking) {
+		setTitle("Buscaminas G2");
+		setIconImage(new ImageIcon(getClass().getResource("/images/pixel_art.png")).getImage());
 		this.ranking = ranking;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 350);

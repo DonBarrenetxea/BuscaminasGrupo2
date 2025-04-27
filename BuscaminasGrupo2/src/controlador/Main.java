@@ -27,10 +27,8 @@ public class Main {
 		soundManager.playLoop("src/images/ambient.wav", -10.0f);
 
 	}
-
 	public static void abrirVentanaBuscaminas(Dificultad dificultad, String nombre) {
-		Tablero tablero = new Tablero(dificultad);
-		ventanaBuscaminas = new VentanaBuscaminas(dificultad, tablero, ranking, nombre);
+		ventanaBuscaminas = new VentanaBuscaminas(dificultad, ranking, nombre);
 		ventanaBuscaminas.setVisible(true);
 		menuBuscaminas.setVisible(false);
 	}
@@ -40,14 +38,12 @@ public class Main {
 	    ventanaRanking = new VentanaRanking(topJugadores, dificultad);
 	    ventanaRanking.setVisible(true);
 	    ventanaBuscaminas.setVisible(false);
-	    ventanaBuscaminas.setAlwaysOnTop(false);
 	}
 
 	public static void abrirMenuBuscaminas(Ranking ranking) {
 	    if (ventanaBuscaminas != null) {
 	        ventanaBuscaminas.setVisible(false);
 	    }
-	    menuBuscaminas = new MenuBuscaminas(ranking);
 	    menuBuscaminas.setVisible(true);
 	}
 
