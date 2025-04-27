@@ -2,46 +2,47 @@ package modelo;
 
 public class Celda {
 
-    private boolean esMina;
-    private boolean abierta;
-    private int minasCerca;
-    private boolean banderaMarcada;
+	private boolean esMina;
+	private boolean abierta;
+	private int minasCerca;
+	private boolean banderaMarcada;
 
-    public Celda() {
-        this.esMina = false;
-        this.abierta = false;
-        this.minasCerca = 0;
-        this.banderaMarcada=false;
-    }
+	public Celda() {
+		this.esMina = false;
+		this.abierta = false;
+		this.minasCerca = 0;
+		this.banderaMarcada = false;
+	}
 
-    public void setBanderaMarcada(boolean banderaMarcada) {
+	public void setBanderaMarcada(boolean banderaMarcada) {
 		this.banderaMarcada = banderaMarcada;
 	}
-    public boolean getBanderaMarcada() {
+
+	public boolean getBanderaMarcada() {
 		return banderaMarcada;
 	}
 
 	public boolean esMina() {
-        return esMina;
-    }
+		return esMina;
+	}
 
-    public void colocarMina() {
-        this.esMina = true;
-    }
+	public void colocarMina() {
+		this.esMina = true;
+	}
 
-    public boolean esAbierta() {
-        return abierta;
-    }
+	public boolean esAbierta() {
+		return abierta;
+	}
 
-    public void marcarComoAbierta() {
-        this.abierta = true;
-    }
+	public void marcarComoAbierta() {
+		this.abierta = true;
+	}
 
-    public int getMinasCerca() {
-        return minasCerca;
-    }
+	public int getMinasCerca() {
+		return minasCerca;
+	}
 
-    public void incrementarMinasCerca() {
-        minasCerca++;
-    }
+	public void incrementarMinasCerca() {
+		minasCerca++;
+	}
 }

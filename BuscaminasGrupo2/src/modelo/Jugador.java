@@ -19,30 +19,46 @@ public class Jugador implements Comparable<Jugador> {
 
 	private double calcularPuntuacion() {
 		int coeficiente = switch (dificultad) {
-			case FACIL -> 1;
-			case MEDIO -> 2;
-			case DIFICIL -> 3;
+		case FACIL -> 1;
+		case MEDIO -> 2;
+		case DIFICIL -> 3;
 		};
-		return ((double)(casillasDescubiertas - minasActivadas) * coeficiente) / tiempo;
+		return ((double) (casillasDescubiertas - minasActivadas) * coeficiente) / tiempo;
 	}
 
-	public String getNombre() { return nombre; }
-	public Dificultad getDificultad() { return dificultad; }
-	public int getCasillasDescubiertas() { return casillasDescubiertas; }
-	public int getMinasActivadas() { return minasActivadas; }
-	public int getTiempo() { return tiempo; }
-	public double getPuntuaje() { return puntuaje; }
+	public String getNombre() {
+		return nombre;
+	}
+
+	public Dificultad getDificultad() {
+		return dificultad;
+	}
+
+	public int getCasillasDescubiertas() {
+		return casillasDescubiertas;
+	}
+
+	public int getMinasActivadas() {
+		return minasActivadas;
+	}
+
+	public int getTiempo() {
+		return tiempo;
+	}
+
+	public double getPuntuaje() {
+		return puntuaje;
+	}
 
 	@Override
 	public int compareTo(Jugador otro) {
-		return Double.compare(otro.puntuaje, this.puntuaje); 
+		return Double.compare(otro.puntuaje, this.puntuaje);
 	}
 
 	@Override
 	public String toString() {
-		return nombre + " | " + dificultad + " | " + casillasDescubiertas + " | " + tiempo + "s | " + String.format("%.2f", puntuaje);
+		return nombre + " | " + dificultad + " | " + casillasDescubiertas + " | " + tiempo + "s | "
+				+ String.format("%.2f", puntuaje);
 	}
-	
-}
-	
 
+}

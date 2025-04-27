@@ -52,8 +52,8 @@ public class VentanaBuscaminas extends JFrame {
 	private static String nombre;
 
 	public VentanaBuscaminas(Dificultad dificultad, Tablero tablero, Ranking ranking, String nombre) {
-		this.nombre=nombre;
-		this.ranking=ranking;
+		this.nombre = nombre;
+		this.ranking = ranking;
 		this.dificultad = dificultad;
 		filas = dificultad.getFilas();
 		columnas = dificultad.getColumnas();
@@ -79,7 +79,8 @@ public class VentanaBuscaminas extends JFrame {
 
 		reinicio = new JPanel(new FlowLayout());
 		ImageIcon imagenReinicioSinEscalar = new ImageIcon("src/images/caritaFeliz.png");
-		Image imagenReinicioEscalada = imagenReinicioSinEscalar.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+		Image imagenReinicioEscalada = imagenReinicioSinEscalar.getImage().getScaledInstance(45, 45,
+				Image.SCALE_SMOOTH);
 		imagenReinicio = new JLabel(new ImageIcon(imagenReinicioEscalada));
 		reinicio.add(imagenReinicio);
 		topPanel.add(reinicio);
@@ -117,10 +118,10 @@ public class VentanaBuscaminas extends JFrame {
 
 			final int index = i;
 			celda.addMouseListener(new MouseAdapter() {
-				
+
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					
+
 					if (e.getButton() == MouseEvent.BUTTON1) {
 						if (!tablero.getCeldas().get(index).esAbierta()) {
 							revelarCelda(index);
@@ -129,10 +130,10 @@ public class VentanaBuscaminas extends JFrame {
 						if (calcularBanderas() != 0) {
 							GestorSonidos.playOnce("src/images/flag.wav", 6.0f);
 							Celda celdaElegida = tablero.getCeldas().get(index);
-							if (celdaElegida.getBanderaMarcada()!=true && !celdaElegida.esAbierta()) {
-							ponerBandera(index);
-							celdaElegida.setBanderaMarcada(true);
-							}else if(!celdaElegida.esAbierta()){
+							if (celdaElegida.getBanderaMarcada() != true && !celdaElegida.esAbierta()) {
+								ponerBandera(index);
+								celdaElegida.setBanderaMarcada(true);
+							} else if (!celdaElegida.esAbierta()) {
 								JButton botonCelda = celdas.get(index);
 								celdaElegida.setBanderaMarcada(false);
 								botonCelda.setIcon(new ImageIcon("src/images/blank.gif"));
@@ -175,7 +176,7 @@ public class VentanaBuscaminas extends JFrame {
 		List<Celda> celdasTablero = tablero.getCeldas();
 		Celda celdaElegida = celdasTablero.get(posicion);
 		JButton botonCelda = celdas.get(posicion);
-		
+
 		if (celdaElegida.esAbierta()) {
 			return;
 		}
@@ -188,14 +189,15 @@ public class VentanaBuscaminas extends JFrame {
 			botonCelda.setIcon(new ImageIcon("src/images/bombdeath.gif"));
 			GestorSonidos.playOnce("src/images/explosion.wav", 6.0f);
 			ImageIcon imagenReinicioSinEscalar = new ImageIcon("src/images/caritaMuerta.png");
-			Image imagenReinicioEscalada = imagenReinicioSinEscalar.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+			Image imagenReinicioEscalada = imagenReinicioSinEscalar.getImage().getScaledInstance(45, 45,
+					Image.SCALE_SMOOTH);
 			ImageIcon imagenReinicioFinal = new ImageIcon(imagenReinicioEscalada);
 			imagenReinicio.setIcon(imagenReinicioFinal);
 			mostrarTablero(posicion);
 			reinicio.revalidate();
 			reinicio.repaint();
 		} else {
-			
+
 			int minasCerca = celdaElegida.getMinasCerca();
 			String rutaImagen = "";
 
@@ -212,21 +214,19 @@ public class VentanaBuscaminas extends JFrame {
 		celdaElegida.marcarComoAbierta();
 		if (!quedanCeldasTapadas()) {
 			GestorSonidos.playOnce("src/images/win.wav", 8.0f);
-		    ImageIcon imagenReinicioSinEscalar = new ImageIcon("src/images/caritaGuay.png");
-		    Image imagenReinicioEscalada = imagenReinicioSinEscalar.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-		    imagenReinicio.setIcon(new ImageIcon(imagenReinicioEscalada));
-		    reinicio.revalidate();
-		    reinicio.repaint();
-		    
-		    
-		    JOptionPane.showMessageDialog(null, 
-		            "¡Has ganado!", 
-		            "Fin del juego", 
-		            JOptionPane.INFORMATION_MESSAGE);
-		    ranking.agregarJugador(dificultad, nombre, dificultad.getColumnas()*dificultad.getFilas()-dificultad.getMinas(), 0, segundos);
-		    detenerTimer();
-		    ranking.guardarRanking("src/Ranking.txt");
-		        Main.abrirVentanaRanking(dificultad, ranking); 
+			ImageIcon imagenReinicioSinEscalar = new ImageIcon("src/images/caritaGuay.png");
+			Image imagenReinicioEscalada = imagenReinicioSinEscalar.getImage().getScaledInstance(45, 45,
+					Image.SCALE_SMOOTH);
+			imagenReinicio.setIcon(new ImageIcon(imagenReinicioEscalada));
+			reinicio.revalidate();
+			reinicio.repaint();
+
+			JOptionPane.showMessageDialog(null, "¡Has ganado!", "Fin del juego", JOptionPane.INFORMATION_MESSAGE);
+			ranking.agregarJugador(dificultad, nombre,
+					dificultad.getColumnas() * dificultad.getFilas() - dificultad.getMinas(), 0, segundos);
+			detenerTimer();
+			ranking.guardarRanking("src/Ranking.txt");
+			Main.abrirVentanaRanking(dificultad, ranking);
 		}
 	}
 
@@ -321,34 +321,31 @@ public class VentanaBuscaminas extends JFrame {
 			Celda celda = celdasTablero.get(i);
 			JButton botonCelda = celdas.get(i);
 
-			if (celda.esMina()&&i!=posicion) {
+			if (celda.esMina() && i != posicion) {
 				botonCelda.setIcon(new ImageIcon("src/images/bombrevealed.gif"));
 			} else if (celda.getBanderaMarcada()) {
 				botonCelda.setIcon(new ImageIcon("src/images/bombmisflagged.gif"));
-			} 
-			
-			if (celda.getBanderaMarcada()&&celda.esMina()) {
+			}
+
+			if (celda.getBanderaMarcada() && celda.esMina()) {
 				botonCelda.setIcon(new ImageIcon("src/images/bombflagged.gif"));
 			}
 		}
-		 
-		 JOptionPane.showMessageDialog(null, 
-		            "¡Has perdido!", 
-		            "Fin del juego", 
-		            JOptionPane.INFORMATION_MESSAGE);
-		 
-		 		
-		        Main.abrirMenuBuscaminas(ranking);
-		        segundos=0;
-		 
+
+		JOptionPane.showMessageDialog(null, "¡Has perdido!", "Fin del juego", JOptionPane.INFORMATION_MESSAGE);
+
+		Main.abrirMenuBuscaminas(ranking);
+		segundos = 0;
+
 	}
+
 	private static boolean quedanCeldasTapadas() {
-	    List<Celda> celdasTablero = tablero.getCeldas();
-	    for (int i = 0; i < celdasTablero.size(); i++) {
-	        if (!celdasTablero.get(i).esAbierta() && !celdasTablero.get(i).esMina()) {
-	            return true; 
-	        }
-	    }
-	    return false;
+		List<Celda> celdasTablero = tablero.getCeldas();
+		for (int i = 0; i < celdasTablero.size(); i++) {
+			if (!celdasTablero.get(i).esAbierta() && !celdasTablero.get(i).esMina()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
