@@ -16,6 +16,7 @@ import javax.swing.text.*;
 import controlador.Main;
 import modelo.Dificultad;
 import modelo.GestorSonidos;
+import modelo.Ranking;
 
 public class MenuBuscaminas extends JFrame {
 
@@ -23,8 +24,10 @@ public class MenuBuscaminas extends JFrame {
     private JPanel contentPane;
     private static Dificultad dificultad = Dificultad.FACIL;
     private JTextField textField;
+    private Ranking ranking;
 
-    public MenuBuscaminas() {
+    public MenuBuscaminas(Ranking ranking) {
+    	this.ranking=ranking;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 350);
         contentPane = new JPanel();
@@ -35,9 +38,9 @@ public class MenuBuscaminas extends JFrame {
         setContentPane(contentPane);
         GridBagLayout gbl_contentPane = new GridBagLayout();
         gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0};
-        gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0};
+        gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
         gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
-        gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+        gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
         contentPane.setLayout(gbl_contentPane);
 
         JLabel lblNewLabel_1 = new JLabel("BUSCAMINAS GRUPO 2");
@@ -80,6 +83,21 @@ public class MenuBuscaminas extends JFrame {
                 }
             }
         });
+        
+        JButton btnNewButton_4 = new JButton("Ver Ranking de la dificultad FACIL");
+        btnNewButton_4.setForeground(new Color(0, 0, 128));
+        btnNewButton_4.setBackground(new Color(249, 244, 198));
+        btnNewButton_4.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Main.abrirVentanaRanking(dificultad, ranking);
+        	}
+        });
+        GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
+        gbc_btnNewButton_4.insets = new Insets(0, 0, 5, 5);
+        gbc_btnNewButton_4.gridx = 1;
+        gbc_btnNewButton_4.gridy = 3;
+        contentPane.add(btnNewButton_4, gbc_btnNewButton_4);
+        
         GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
         gbc_btnNewButton_3.anchor = GridBagConstraints.EAST;
         gbc_btnNewButton_3.insets = new Insets(0, 0, 0, 5);
@@ -179,6 +197,7 @@ public class MenuBuscaminas extends JFrame {
             	GestorSonidos.playOnce("src/images/select.wav", -5.0f);
                 lblNewLabel_2.setText("Facil");
                 dificultad = Dificultad.FACIL;
+                btnNewButton_4.setText("Ver Ranking de la dificultad FACIL");
             }
         });
         panel.add(btnNewButton);
@@ -191,6 +210,7 @@ public class MenuBuscaminas extends JFrame {
             	GestorSonidos.playOnce("src/images/select.wav", -5.0f);
                 lblNewLabel_2.setText("Normal");
                 dificultad = Dificultad.MEDIO;
+                btnNewButton_4.setText("Ver Ranking de la dificultad NORMAL");
             }
         });
         panel.add(btnNewButton_1);
@@ -203,8 +223,11 @@ public class MenuBuscaminas extends JFrame {
             	GestorSonidos.playOnce("src/images/select.wav", -5.0f);
                 lblNewLabel_2.setText("Dificil");
                 dificultad = Dificultad.DIFICIL;
+                btnNewButton_4.setText("Ver Ranking de la dificultad DIFICIL");
             }
         });
         panel.add(btnNewButton_2);
+        
+        
     }
 }

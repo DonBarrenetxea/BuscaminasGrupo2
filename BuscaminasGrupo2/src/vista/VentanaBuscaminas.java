@@ -338,7 +338,7 @@ public class VentanaBuscaminas extends JFrame {
 		            JOptionPane.INFORMATION_MESSAGE);
 		 
 		 		
-		        Main.abrirMenuBuscaminas();
+		        Main.abrirMenuBuscaminas(ranking);
 		        segundos=0;
 		 
 	}

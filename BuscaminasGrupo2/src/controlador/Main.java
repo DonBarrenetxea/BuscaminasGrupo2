@@ -22,7 +22,7 @@ public class Main {
 		ranking = new Ranking();
 		ranking.cargarRanking("src/Ranking.txt");
 		
-		menuBuscaminas = new MenuBuscaminas();
+		menuBuscaminas = new MenuBuscaminas(ranking);
 		menuBuscaminas.setVisible(true);
 		GestorSonidos soundManager = new GestorSonidos();
 		soundManager.playLoop("src/images/ambient.wav", -10.0f);
@@ -41,7 +41,7 @@ public class Main {
 		ventanaBuscaminas.setVisible(false);
 		ventanaBuscaminas.setAlwaysOnTop(false);
 	}
-	public static void abrirMenuBuscaminas() {
+	public static void abrirMenuBuscaminas(Ranking ranking) {
 		ventanaBuscaminas.setVisible(false);
 		menuBuscaminas.setVisible(true);
 	}
