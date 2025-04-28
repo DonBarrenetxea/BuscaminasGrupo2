@@ -251,6 +251,7 @@ public class VentanaBuscaminas extends JFrame {
 			detenerTimer();
 			JOptionPane.showMessageDialog(null, "¡Has ganado!", "Fin del juego", JOptionPane.INFORMATION_MESSAGE);
 			ranking.agregarJugador(dificultad, nombre,dificultad.getColumnas() * dificultad.getFilas() - dificultad.getMinas(), 0, segundos);
+			segundos=0;
 			ranking.guardarRanking("src/Ranking.txt");
 			Main.abrirVentanaRanking(dificultad);
 		}
@@ -335,7 +336,6 @@ public class VentanaBuscaminas extends JFrame {
 	private static void detenerTimer() {
 		if (timer != null) {
 			timer.stop();
-			segundos = 999;
 		}
 	}
 
