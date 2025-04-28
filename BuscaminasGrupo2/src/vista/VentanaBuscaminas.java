@@ -151,9 +151,9 @@ public class VentanaBuscaminas extends JFrame {
 							revelarCelda(index);
 						}
 					} else if (e.getButton() == MouseEvent.BUTTON3) {
+						Celda celdaElegida = tablero.getCeldas().get(index);
 						if (calcularBanderas() != 0) {
 							GestorSonidos.playOnce("src/images/flag.wav", 6.0f);
-							Celda celdaElegida = tablero.getCeldas().get(index);
 							if (celdaElegida.getBanderaMarcada() != true && !celdaElegida.esAbierta()) {
 								ponerBandera(index);
 								celdaElegida.setBanderaMarcada(true);
@@ -162,8 +162,12 @@ public class VentanaBuscaminas extends JFrame {
 								celdaElegida.setBanderaMarcada(false);
 								botonCelda.setIcon(new ImageIcon("src/images/blank.gif"));
 							}
-							actualizarFlags();
+						}else if(celdaElegida.getBanderaMarcada()==true && calcularBanderas() == 0) {
+							JButton botonCelda = celdas.get(index);
+							celdaElegida.setBanderaMarcada(false);
+							botonCelda.setIcon(new ImageIcon("src/images/blank.gif"));
 						}
+						actualizarFlags();
 					}
 				}
 			});
@@ -244,11 +248,9 @@ public class VentanaBuscaminas extends JFrame {
 			imagenReinicio.setIcon(new ImageIcon(imagenReinicioEscalada));
 			reinicio.revalidate();
 			reinicio.repaint();
-
-			JOptionPane.showMessageDialog(null, "¡Has ganado!", "Fin del juego", JOptionPane.INFORMATION_MESSAGE);
-			ranking.agregarJugador(dificultad, nombre,
-					dificultad.getColumnas() * dificultad.getFilas() - dificultad.getMinas(), 0, segundos);
 			detenerTimer();
+			JOptionPane.showMessageDialog(null, "¡Has ganado!", "Fin del juego", JOptionPane.INFORMATION_MESSAGE);
+			ranking.agregarJugador(dificultad, nombre,dificultad.getColumnas() * dificultad.getFilas() - dificultad.getMinas(), 0, segundos);
 			ranking.guardarRanking("src/Ranking.txt");
 			Main.abrirVentanaRanking(dificultad);
 		}

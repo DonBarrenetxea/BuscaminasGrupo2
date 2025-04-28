@@ -37,7 +37,12 @@ public class Main {
 	    List<Jugador> topJugadores = ranking.getTopJugadores(dificultad);
 	    ventanaRanking = new VentanaRanking(topJugadores, dificultad);
 	    ventanaRanking.setVisible(true);
+	    if (ventanaBuscaminas != null) {
 	    ventanaBuscaminas.setVisible(false);
+	    }
+	    if (menuBuscaminas != null) {
+	    	menuBuscaminas.setVisible(false);
+	    }
 	}
 
 	public static void abrirMenuBuscaminas(Ranking ranking) {
